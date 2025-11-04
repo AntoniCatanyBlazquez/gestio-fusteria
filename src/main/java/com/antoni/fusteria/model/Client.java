@@ -1,4 +1,4 @@
-package com.antoni.fusteria;
+package com.antoni.fusteria.model;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
