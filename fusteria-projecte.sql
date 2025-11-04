@@ -1,7 +1,7 @@
 CREATE TABLE "Factura" (
   "id" integer PRIMARY KEY,
   "client_id" integer,
-  "data" date,
+  "data_emisio" date,
   "total" numeric,
   "iva" numeric,
   "observacions" varchar NOT NULL
@@ -13,7 +13,7 @@ CREATE TABLE "Client" (
   "llinatges" varchar,
   "telefon" integer,
   "direccio" varchar,
-  "email" varchar NOT NULL
+  "email" varchar NULL
 );
 
 CREATE TABLE "Treball" (
@@ -21,8 +21,8 @@ CREATE TABLE "Treball" (
   "client_id" integer,
   "descripcio" varchar,
   "data" date,
-  "estat" enum(pendent,en_curs,acabat),
-  "cost" numeric,
+  "estat" enum(pendent,en_curs,finalitzat),
+  "preu" numeric,
   "materials" varchar,
   "imatge" bytea
 );
@@ -33,11 +33,10 @@ CREATE TABLE "FacturaTreball" (
   "treball_id" integer
 );
 
-CREATE TABLE "Entrega" (
+CREATE TABLE "Calendari" (
   "id" integer PRIMARY KEY,
   "treball_id" integer,
   "data_entrada" date,
-  "data_entrega" date,
   "comentaris" varchar
 );
 
