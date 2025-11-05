@@ -1,4 +1,4 @@
-package com.antoni.fusteria.model;
+package com.antoni.fusteria.domain.model;
 
 public enum Estat_Treball {
     PENDENT,

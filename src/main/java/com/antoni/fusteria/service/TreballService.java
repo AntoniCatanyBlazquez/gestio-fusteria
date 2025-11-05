@@ -1,14 +1,16 @@
 package com.antoni.fusteria.service;
 
-import com.antoni.fusteria.dto.CalendariTreballDto;
-import com.antoni.fusteria.model.Treball;
-import com.antoni.fusteria.repository.CalendariRepository;
-import com.antoni.fusteria.repository.TreballRepository;
+import com.antoni.fusteria.api.dto.CalendariDto;
+import com.antoni.fusteria.domain.model.Treball;
+import com.antoni.fusteria.domain.repository.CalendariRepository;
+import com.antoni.fusteria.domain.repository.TreballRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class TreballService {
 
     @Autowired
@@ -33,9 +35,9 @@ public class TreballService {
         treballRepository.deleteById(id);
     }
 
-    public List<CalendariTreballDto> obtenirTreballsPerCalendari(){
+    public List<CalendariDto> obtenirTreballsPerCalendari(){
         return calendariRepository.findAll().stream()
-                .map(treball -> new CalendariTreballDto(treball.getDateEntrada(),treball.getTitol()))
+                .map(treball -> new CalendariDto(treball.getDateEntrada(),treball.getTitol()))
                 .collect(Collectors.toList());
     }
 }

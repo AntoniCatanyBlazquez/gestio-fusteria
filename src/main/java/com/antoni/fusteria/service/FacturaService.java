@@ -1,11 +1,13 @@
 package com.antoni.fusteria.service;
 
-import com.antoni.fusteria.model.Factura;
-import com.antoni.fusteria.repository.FacturaRepository;
+import com.antoni.fusteria.domain.model.Factura;
+import com.antoni.fusteria.domain.repository.FacturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class FacturaService {
 
     @Autowired

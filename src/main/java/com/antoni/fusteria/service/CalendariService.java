@@ -1,11 +1,13 @@
 package com.antoni.fusteria.service;
 
-import com.antoni.fusteria.model.Calendari;
-import com.antoni.fusteria.repository.CalendariRepository;
+import com.antoni.fusteria.domain.model.Calendari;
+import com.antoni.fusteria.domain.repository.CalendariRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CalendariService {
 
     @Autowired

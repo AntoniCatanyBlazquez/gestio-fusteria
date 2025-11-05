@@ -1,4 +1,4 @@
-package com.antoni.fusteria.model;
+package com.antoni.fusteria.domain.model;
 
 import jakarta.persistence.*;
 

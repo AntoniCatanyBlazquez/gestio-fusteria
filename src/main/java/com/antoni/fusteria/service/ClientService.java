@@ -1,11 +1,13 @@
 package com.antoni.fusteria.service;
 
-import com.antoni.fusteria.model.Client;
-import com.antoni.fusteria.repository.ClientRepository;
+import com.antoni.fusteria.domain.model.Client;
+import com.antoni.fusteria.domain.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ClientService {
     @Autowired
     private ClientRepository clientRepository;

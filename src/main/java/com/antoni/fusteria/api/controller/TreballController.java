@@ -1,7 +1,7 @@
-package com.antoni.fusteria.controller;
+package com.antoni.fusteria.api.controller;
 
-import com.antoni.fusteria.model.Factura;
-import com.antoni.fusteria.model.Treball;
+import com.antoni.fusteria.domain.model.Factura;
+import com.antoni.fusteria.domain.model.Treball;
 import com.antoni.fusteria.service.TreballService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,9 +1,9 @@
-package com.antoni.fusteria.controller;
+package com.antoni.fusteria.api.controller;
 
-import com.antoni.fusteria.dto.CalendariTreballDto;
-import com.antoni.fusteria.model.Calendari;
-import com.antoni.fusteria.model.Factura;
-import com.antoni.fusteria.model.Treball;
+import com.antoni.fusteria.api.dto.CalendariDto;
+import com.antoni.fusteria.domain.model.Calendari;
+import com.antoni.fusteria.domain.model.Factura;
+import com.antoni.fusteria.domain.model.Treball;
 import com.antoni.fusteria.service.CalendariService;
 import com.antoni.fusteria.service.TreballService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,9 +81,9 @@ public class CalendariController {
         return ResponseEntity.ok(factures);
     }
 
-    @GetMapping("/eventos")
-    public List<CalendariTreballDto> obtenirEsdeveniment() {
+    @GetMapping("/esdevenimets")
+    public List<CalendariDto> obtenirEsdeveniment() {
         return treballService.obtenirTreballsPerCalendari();
-    }
 
+    }
 }

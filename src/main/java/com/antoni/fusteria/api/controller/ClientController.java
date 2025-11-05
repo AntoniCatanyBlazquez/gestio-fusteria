@@ -1,7 +1,8 @@
-package com.antoni.fusteria.controller;
+package com.antoni.fusteria.api.controller;
 
-import com.antoni.fusteria.model.Client;
-import com.antoni.fusteria.model.Treball;
+import com.antoni.fusteria.api.dto.ClientDto;
+import com.antoni.fusteria.domain.model.Client;
+import com.antoni.fusteria.domain.model.Treball;
 import com.antoni.fusteria.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ public class ClientController {
         return ResponseEntity.ok(clients);
     }
 
-    @GetMapping("/api/{id}")
+    @GetMapping("/api/clients/{id}")
     public ResponseEntity<Client> getClientById(@PathVariable Long id) {
         Client client = clientService.getClientById(id);
         if (client == null){
@@ -42,7 +43,7 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedClient);
     }
 
-    @PatchMapping("/api/{id}")
+    @PatchMapping("/api/clients/{id}")
     public ResponseEntity<Client> updateClient(@PathVariable Long id, @RequestBody Client client) {
         Client existingClient = clientService.getClientById(id);
 
@@ -65,13 +66,13 @@ public class ClientController {
         return ResponseEntity.ok(updatedClient);
     }
 
-    @DeleteMapping("/api/{id}")
+    @DeleteMapping("/api/clients/{id}")
     public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
         clientService.deleteClient(id);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/api/{id}/treballs")
+    @GetMapping("/api/clients/{id}/treballs")
     public ResponseEntity<List<Treball>> getTreballsByClientId (@PathVariable Long id) {
         Client client = clientService.getClientById(id);
         if (client == null) {

@@ -1,12 +1,12 @@
-package com.antoni.fusteria.dto;
+package com.antoni.fusteria.api.dto;
 
 import java.time.LocalDate;
 
-public class CalendariTreballDto {
+public class CalendariDto {
     private String titol;
     private LocalDate inici;
 
-    public CalendariTreballDto(LocalDate inici, String titol) {
+    public CalendariDto(LocalDate inici, String titol) {
         this.inici = inici;
         this.titol = titol;
     }
