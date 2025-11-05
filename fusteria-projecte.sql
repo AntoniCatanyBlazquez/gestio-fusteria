@@ -20,6 +20,7 @@ CREATE TABLE "Treball" (
   "id" integer PRIMARY KEY,
   "client_id" integer,
   "descripcio" varchar,
+  "titol" varchar,
   "data" date,
   "estat" enum(pendent,en_curs,finalitzat),
   "preu" numeric,
@@ -36,6 +37,7 @@ CREATE TABLE "FacturaTreball" (
 CREATE TABLE "Calendari" (
   "id" integer PRIMARY KEY,
   "treball_id" integer,
+  "titol_treball" varchar,
   "data_entrada" date,
   "comentaris" varchar
 );

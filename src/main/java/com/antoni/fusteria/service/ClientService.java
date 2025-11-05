@@ -1,0 +1,28 @@
+package com.antoni.fusteria.service;
+
+import com.antoni.fusteria.model.Client;
+import com.antoni.fusteria.repository.ClientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+public class ClientService {
+    @Autowired
+    private ClientRepository clientRepository;
+
+    public List<Client> getAllClients() {
+        return clientRepository.findAll();
+    }
+
+    public Client getClientById(Long id) {
+        return clientRepository.findById(id).orElse(null);
+    }
+
+    public Client saveClient(Client client) {
+        return clientRepository.save(client);
+    }
+
+    public void deleteClient(Long id) {
+        clientRepository.deleteById(id);
+    }
+}

@@ -16,15 +16,18 @@ public class Calendari {
 
     private LocalDate dateEntrada;
     private String comentaris;
+    private String titol;
 
-    public Calendari() {
+    public Calendari(String titol) {
+        this.titol = titol;
     }
 
-    public Calendari(Long id, Treball treball, LocalDate dateEntrada, String comentaris) {
+    public Calendari(Long id, Treball treball, LocalDate dateEntrada, String comentaris, String titol) {
         this.id = id;
         this.treball = treball;
         this.dateEntrada = dateEntrada;
         this.comentaris = comentaris;
+        this.titol = titol;
     }
 
     public Long getId() {
@@ -57,5 +60,13 @@ public class Calendari {
 
     public void setComentaris(String comentaris) {
         this.comentaris = comentaris;
+    }
+
+    public String getTitol() {
+        return titol;
+    }
+
+    public void setTitol(String titol) {
+        this.titol = titol;
     }
 }

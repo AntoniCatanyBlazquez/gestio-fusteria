@@ -13,6 +13,7 @@ public class Treball {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+    private String titol;
     private String descripcio;
     private LocalDate data;
     @Enumerated(EnumType.STRING)
@@ -28,12 +29,14 @@ public class Treball {
     @OneToMany(mappedBy = "treball", cascade = CascadeType.ALL)
     private List<Calendari> treballCalendari;
 
-    public Treball() {
+    public Treball(String titol) {
+        this.titol = titol;
     }
 
-    public Treball(Long id, Client client, String descripcio, LocalDate data, Estat_Treball estat, double preu, String materials, byte[] imatge, List<Factura> factures, List<Calendari> treballCalendari) {
+    public Treball(Long id, Client client, String titol, String descripcio, LocalDate data, Estat_Treball estat, double preu, String materials, byte[] imatge, List<Factura> factures, List<Calendari> treballCalendari) {
         this.id = id;
         this.client = client;
+        this.titol = titol;
         this.descripcio = descripcio;
         this.data = data;
         this.estat = estat;
@@ -114,5 +117,13 @@ public class Treball {
 
     public void setFactures(List<Factura> factures) {
         this.factures = factures;
+    }
+
+    public String getTitol() {
+        return titol;
+    }
+
+    public void setTitol(String titol) {
+        this.titol = titol;
     }
 }
