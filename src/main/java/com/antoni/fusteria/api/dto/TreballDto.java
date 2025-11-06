@@ -1,5 +1,7 @@
 package com.antoni.fusteria.api.dto;
 
+import com.antoni.fusteria.domain.model.Estat_Treball;
+
 public class TreballDto {
     private Long id;
     private String nomClient;
@@ -13,6 +15,9 @@ public class TreballDto {
         this.telefonClient = telefonClient;
         this.descripcioTreball = descripcioTreball;
         this.estatTreball = estatTreball;
+    }
+
+    public TreballDto(Long id, String nomClient, String titol, String descripcio, String string, Estat_Treball estat, double preu, String materials, byte[] imatge) {
     }
 
     public Long getId() {

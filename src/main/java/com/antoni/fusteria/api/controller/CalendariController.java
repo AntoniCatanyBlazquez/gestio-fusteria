@@ -27,18 +27,22 @@ public class CalendariController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Calendari>> getAllCalendaris() {
+    public ResponseEntity<List<CalendariDto>> getAllCalendaris() {
         List<Calendari> calendaris = calendariService.getAllCalendaris();
-        return ResponseEntity.ok(calendaris);
+        List<CalendariDto> dtos = calendaris.stream()
+                .map(calendariService::toDto)
+                .toList();
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Calendari> getCalendariById(@PathVariable Long id){
+    public ResponseEntity<CalendariDto> getCalendariById(@PathVariable Long id){
         Calendari calendari = calendariService.getCalendariById(id);
         if (calendari == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(calendari);
+        CalendariDto dto = calendariService.toDto(calendari);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
@@ -81,7 +85,7 @@ public class CalendariController {
         return ResponseEntity.ok(factures);
     }
 
-    @GetMapping("/esdevenimets")
+    @GetMapping("/esdeveniments")
     public List<CalendariDto> obtenirEsdeveniment() {
         return treballService.obtenirTreballsPerCalendari();
 

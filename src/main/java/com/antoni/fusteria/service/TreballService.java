@@ -1,6 +1,7 @@
 package com.antoni.fusteria.service;
 
 import com.antoni.fusteria.api.dto.CalendariDto;
+import com.antoni.fusteria.api.dto.TreballDto;
 import com.antoni.fusteria.domain.model.Treball;
 import com.antoni.fusteria.domain.repository.CalendariRepository;
 import com.antoni.fusteria.domain.repository.TreballRepository;
@@ -39,5 +40,19 @@ public class TreballService {
         return calendariRepository.findAll().stream()
                 .map(treball -> new CalendariDto(treball.getDateEntrada(),treball.getTitol()))
                 .collect(Collectors.toList());
+    }
+
+    public TreballDto toDto(Treball treball) {
+        return new TreballDto(
+                treball.getId(),
+                treball.getClient().getNom() + " " + treball.getClient().getLlinatge(),
+                treball.getTitol(),
+                treball.getDescripcio(),
+                treball.getData().toString(),
+                treball.getEstat(),
+                treball.getPreu(),
+                treball.getMaterials(),
+                treball.getImatge()
+        );
     }
 }

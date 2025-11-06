@@ -11,6 +11,9 @@ public class CalendariDto {
         this.titol = titol;
     }
 
+    public CalendariDto(Long id, String titol, String string) {
+    }
+
     public String getTitol() {
         return titol;
     }

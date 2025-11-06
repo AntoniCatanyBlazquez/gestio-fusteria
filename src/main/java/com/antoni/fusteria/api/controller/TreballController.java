@@ -1,5 +1,6 @@
 package com.antoni.fusteria.api.controller;
 
+import com.antoni.fusteria.api.dto.TreballDto;
 import com.antoni.fusteria.domain.model.Factura;
 import com.antoni.fusteria.domain.model.Treball;
 import com.antoni.fusteria.service.TreballService;
@@ -22,18 +23,22 @@ public class TreballController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Treball>> getAllTreballs(){
+    public ResponseEntity<List<TreballDto>> getAllTreballs(){
         List<Treball> treballs = treballService.getAllTreballs();
-        return ResponseEntity.ok(treballs);
+        List<TreballDto> dtos = treballs.stream()
+                .map(treballService::toDto)
+                .toList();
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Treball> getTreballById(@PathVariable Long id) {
+    public ResponseEntity<TreballDto> getTreballById(@PathVariable Long id) {
         Treball treball = treballService.getTreballById(id);
         if (treball == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(treball);
+        TreballDto dto = treballService.toDto(treball);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping

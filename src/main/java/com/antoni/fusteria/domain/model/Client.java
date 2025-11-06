@@ -2,6 +2,7 @@ package com.antoni.fusteria.domain.model;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -10,7 +11,9 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     private String nom;
+    @NotNull
     private String llinatge;
     private int telefon;
     private String direccio;

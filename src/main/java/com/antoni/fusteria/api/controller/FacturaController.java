@@ -1,5 +1,6 @@
 package com.antoni.fusteria.api.controller;
 
+import com.antoni.fusteria.api.dto.FacturaDto;
 import com.antoni.fusteria.domain.model.Client;
 import com.antoni.fusteria.domain.model.Factura;
 import com.antoni.fusteria.domain.model.Treball;
@@ -23,18 +24,22 @@ public class FacturaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Factura>> getAllFactures() {
+    public ResponseEntity<List<FacturaDto>> getAllFactures() {
         List<Factura> factures = facturaService.getAllFactures();
-        return ResponseEntity.ok(factures);
+        List<FacturaDto> dtos = factures.stream()
+                .map(facturaService::toDto)
+                .toList();
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Factura> getFacturaById(@PathVariable Long id) {
+    public ResponseEntity<FacturaDto> getFacturaById(@PathVariable Long id) {
         Factura factura = facturaService.getFacturaById(id);
         if (factura == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(factura);
+        FacturaDto dto = facturaService.toDto(factura);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
@@ -59,8 +64,8 @@ public class FacturaController {
         if (factura.getIva() != null) {
             existingFactura.setIva(factura.getIva());
         }
-        if (factura.getObvervacions() != null) {
-            existingFactura.setObvervacions(factura.getObvervacions());
+        if (factura.getObservacions() != null) {
+            existingFactura.setObservacions(factura.getObservacions());
         }
         if (existingFactura == null) {
             return ResponseEntity.notFound().build();

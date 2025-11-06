@@ -1,5 +1,6 @@
 package com.antoni.fusteria.service;
 
+import com.antoni.fusteria.api.dto.ClientDto;
 import com.antoni.fusteria.domain.model.Client;
 import com.antoni.fusteria.domain.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,13 @@ public class ClientService {
 
     public void deleteClient(Long id) {
         clientRepository.deleteById(id);
+    }
+
+    public ClientDto toDto(Client client) {
+        return new ClientDto(
+                client.getId(),
+                client.getNom() + " " + client.getLlinatge(),
+                String.valueOf(client.getTelefon())
+        );
     }
 }

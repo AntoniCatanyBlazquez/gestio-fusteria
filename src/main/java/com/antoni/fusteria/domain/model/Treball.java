@@ -1,6 +1,7 @@
 package com.antoni.fusteria.domain.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,8 +14,10 @@ public class Treball {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+    @NotNull
     private String titol;
     private String descripcio;
+    @NotNull
     private LocalDate data;
     @Enumerated(EnumType.STRING)
     private Estat_Treball estat;

@@ -23,18 +23,22 @@ public class ClientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Client>> getAllClients() {
+    public ResponseEntity<List<ClientDto>> getAllClients() {
         List<Client> clients = clientService.getAllClients();
-        return ResponseEntity.ok(clients);
+        List<ClientDto> dtos = clients.stream()
+                .map(clientService::toDto)
+                .toList();
+        return ResponseEntity.ok(dtos);
     }
 
-    @GetMapping("/api/clients/{id}")
-    public ResponseEntity<Client> getClientById(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<ClientDto> getClientById(@PathVariable Long id) {
         Client client = clientService.getClientById(id);
         if (client == null){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(client);
+        ClientDto dto = clientService.toDto(client);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
@@ -43,7 +47,7 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedClient);
     }
 
-    @PatchMapping("/api/clients/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Client> updateClient(@PathVariable Long id, @RequestBody Client client) {
         Client existingClient = clientService.getClientById(id);
 
@@ -66,13 +70,13 @@ public class ClientController {
         return ResponseEntity.ok(updatedClient);
     }
 
-    @DeleteMapping("/api/clients/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
         clientService.deleteClient(id);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/api/clients/{id}/treballs")
+    @GetMapping("{id}/treballs")
     public ResponseEntity<List<Treball>> getTreballsByClientId (@PathVariable Long id) {
         Client client = clientService.getClientById(id);
         if (client == null) {
