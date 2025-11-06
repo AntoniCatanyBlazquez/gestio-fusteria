@@ -1,11 +1,17 @@
 package com.antoni.fusteria.api.dto;
 
+import com.antoni.fusteria.domain.model.IdentificacioClient;
+import jakarta.validation.constraints.NotNull;
+
+import java.time.LocalDate;
+
 public class FacturaDto {
 
     private Long id;
     private String numeroFactura;
     private String nomClient;
-    private String dataEmissio;
+    private IdentificacioClient identificacioClient;
+    private LocalDate dataEmissio;
     private Double subtotal;
     private Double iva;
     private Double retencioIRPF;
@@ -13,10 +19,11 @@ public class FacturaDto {
     private String metodePagament;
     private String observacions;
 
-    public FacturaDto(Long id, String numeroFactura, String nomClient, String dataEmissio, Double subtotal, Double iva, Double retencioIRPF, Double totalImport, String metodePagament, String observacions) {
+    public FacturaDto(Long id, String numeroFactura, String nomClient, IdentificacioClient identificacioClient, LocalDate dataEmissio, Double subtotal, Double iva, Double retencioIRPF, Double totalImport, String metodePagament, String observacions) {
         this.id = id;
         this.numeroFactura = numeroFactura;
         this.nomClient = nomClient;
+        this.identificacioClient = identificacioClient;
         this.dataEmissio = dataEmissio;
         this.subtotal = subtotal;
         this.iva = iva;
@@ -50,11 +57,19 @@ public class FacturaDto {
         this.nomClient = nomClient;
     }
 
-    public String getDataEmissio() {
+    public IdentificacioClient getIdentificacioClient() {
+        return identificacioClient;
+    }
+
+    public void setIdentificacioClient(IdentificacioClient identificacioClient) {
+        this.identificacioClient = identificacioClient;
+    }
+
+    public LocalDate getDataEmissio() {
         return dataEmissio;
     }
 
-    public void setDataEmissio(String dataEmissio) {
+    public void setDataEmissio(LocalDate dataEmissio) {
         this.dataEmissio = dataEmissio;
     }
 

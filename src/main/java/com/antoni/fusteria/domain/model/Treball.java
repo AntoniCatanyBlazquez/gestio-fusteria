@@ -3,6 +3,7 @@ package com.antoni.fusteria.domain.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class Treball {
     private LocalDate data;
     @Enumerated(EnumType.STRING)
     private Estat_Treball estat;
-    private double preu;
+    private BigDecimal preu;
     private String materials;
     @Lob
     private byte[] imatge;
@@ -36,7 +37,7 @@ public class Treball {
         this.titol = titol;
     }
 
-    public Treball(Long id, Client client, String titol, String descripcio, LocalDate data, Estat_Treball estat, double preu, String materials, byte[] imatge, List<Factura> factures, List<Calendari> treballCalendari) {
+    public Treball(Long id, Client client, String titol, String descripcio, LocalDate data, Estat_Treball estat, BigDecimal preu, String materials, byte[] imatge, List<Factura> factures, List<Calendari> treballCalendari) {
         this.id = id;
         this.client = client;
         this.titol = titol;
@@ -90,11 +91,11 @@ public class Treball {
         this.estat = estat;
     }
 
-    public double getPreu() {
+    public BigDecimal getPreu() {
         return preu;
     }
 
-    public void setPreu(double preu) {
+    public void setPreu(BigDecimal preu) {
         this.preu = preu;
     }
 

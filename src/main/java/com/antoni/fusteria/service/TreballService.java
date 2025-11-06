@@ -50,7 +50,7 @@ public class TreballService {
                 treball.getDescripcio(),
                 treball.getData().toString(),
                 treball.getEstat(),
-                treball.getPreu(),
+                treball.getPreu().doubleValue(),
                 treball.getMaterials(),
                 treball.getImatge()
         );

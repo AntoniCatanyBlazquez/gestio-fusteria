@@ -19,6 +19,9 @@ public class Factura {
     private Client client;
 
     @NotNull
+    private IdentificacioClient identificacioClient;
+
+    @NotNull
     private LocalDate dataEmisio;
 
     private String numeroFactura;
@@ -47,14 +50,17 @@ public class Factura {
     )
     private List<Treball> treballs;
 
-    public Factura() {}
+    public Factura(IdentificacioClient identificacioClient) {
+        this.identificacioClient = identificacioClient;
+    }
 
-    public Factura(Long id, Client client, LocalDate dataEmisio, String numeroFactura,
+    public Factura(Long id, Client client, IdentificacioClient identificacioClient, LocalDate dataEmisio, String numeroFactura,
                    BigDecimal subtotal, BigDecimal retencioIRPF, BigDecimal total,
                    BigDecimal iva, @Nullable String observacions, @Nullable String metodePagament,
                    List<Treball> treballs) {
         this.id = id;
         this.client = client;
+        this.identificacioClient = identificacioClient;
         this.dataEmisio = dataEmisio;
         this.numeroFactura = numeroFactura;
         this.subtotal = subtotal;
@@ -154,5 +160,13 @@ public class Factura {
 
     public void setTreballs(List<Treball> treballs) {
         this.treballs = treballs;
+    }
+
+    public @NotNull IdentificacioClient getIdentificacioClient() {
+        return identificacioClient;
+    }
+
+    public void setIdentificacioClient(@NotNull IdentificacioClient identificacioClient) {
+        this.identificacioClient = identificacioClient;
     }
 }

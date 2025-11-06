@@ -60,7 +60,7 @@ public class TreballController {
         if (treball.getTitol() != null) {
             existingTreball.setTitol(treball.getTitol());
         }
-        if (treball.getPreu() != 0) {
+        if (treball.getPreu() != null) {
             existingTreball.setPreu(treball.getPreu());
         }
         if (treball.getMaterials() != null) {

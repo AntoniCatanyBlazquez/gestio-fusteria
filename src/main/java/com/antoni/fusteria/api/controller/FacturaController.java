@@ -6,8 +6,7 @@ import com.antoni.fusteria.domain.model.Factura;
 import com.antoni.fusteria.domain.model.Treball;
 import com.antoni.fusteria.service.FacturaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -98,5 +97,21 @@ public class FacturaController {
         }
         List<Treball> treballs = factura.getTreballs();
         return ResponseEntity.ok(treballs);
+    }
+
+    @GetMapping("/{id}/descarregar")
+    public ResponseEntity<byte[]> descarregarFactura(@PathVariable Long id) {
+        Factura factura = facturaService.getFacturaById(id);
+        if (factura == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        byte[] pdfBytes = facturaService.generarPdfFactura(factura);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=factura_" +
+                        factura.getNumeroFactura() + ".pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdfBytes);
     }
 }
