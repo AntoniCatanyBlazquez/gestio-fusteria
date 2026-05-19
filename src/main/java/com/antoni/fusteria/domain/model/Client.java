@@ -27,6 +27,13 @@ public class Client {
     @Nullable
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    @Nullable
+    private IdentificacioClient tipusIdentificacio;
+
+    @Nullable
+    private String numeroIdentificacio;
+
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Treball> treballs;
@@ -62,6 +69,10 @@ public class Client {
     @Nullable
     public String getEmail() { return email; }
     public void setEmail(@Nullable String email) { this.email = email; }
+    public IdentificacioClient getTipusIdentificacio() { return tipusIdentificacio; }
+    public void setTipusIdentificacio(IdentificacioClient tipusIdentificacio) { this.tipusIdentificacio = tipusIdentificacio; }
+    public String getNumeroIdentificacio() { return numeroIdentificacio; }
+    public void setNumeroIdentificacio(String numeroIdentificacio) { this.numeroIdentificacio = numeroIdentificacio; }
     public List<Treball> getTreballs() { return treballs; }
     public void setTreballs(List<Treball> treballs) { this.treballs = treballs; }
     public List<Factura> getFactures() { return factures; }

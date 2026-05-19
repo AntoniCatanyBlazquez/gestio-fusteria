@@ -20,12 +20,6 @@
             </select>
         </div>
         <div class="mb-3">
-            <label class="form-label">Tipus d'identificació <span class="text-danger">*</span></label>
-            <select name="identificacioClient" class="form-select" required>
-                <option th:each="i : ${identificacions}" th:value="${i}" th:text="${i}"></option>
-            </select>
-        </div>
-        <div class="mb-3">
             <label class="form-label">Treballs a incloure <span class="text-danger">*</span></label>
             <div class="border rounded p-3" style="max-height: 200px; overflow-y: auto;">
                 <div th:each="t : ${treballs}" class="form-check">

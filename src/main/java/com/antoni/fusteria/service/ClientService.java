@@ -26,7 +26,8 @@ public class ClientService {
             boolean coincideixNom = c.getNom().toLowerCase().contains(q);
             boolean coincideixLlinatge = c.getLlinatge().toLowerCase().contains(q);
             boolean coincideixEmail = c.getEmail() != null && c.getEmail().toLowerCase().contains(q);
-            if (coincideixNom || coincideixLlinatge || coincideixEmail) {
+            boolean coincideixNif = c.getNumeroIdentificacio() != null && c.getNumeroIdentificacio().toLowerCase().contains(q);
+            if (coincideixNom || coincideixLlinatge || coincideixEmail || coincideixNif) {
                 resultat.add(c);
             }
         }

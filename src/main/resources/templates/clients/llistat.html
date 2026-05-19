@@ -25,13 +25,14 @@
             <table class="table table-hover mb-0">
                 <thead style="background-color: #795548; color: white;">
                     <tr>
-                        <th>Nom</th><th>Llinatge</th><th>Telèfon</th><th>Email</th><th>Adreça</th><th>Accions</th>
+                        <th>Nom</th><th>Llinatge</th><th>Identificació</th><th>Telèfon</th><th>Email</th><th>Adreça</th><th>Accions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="client : ${clients}">
                         <td th:text="${client.nom}"></td>
                         <td th:text="${client.llinatge}"></td>
+                        <td th:text="${client.tipusIdentificacio != null ? client.tipusIdentificacio + ': ' + client.numeroIdentificacio : '—'}"></td>
                         <td th:text="${client.telefon}"></td>
                         <td th:text="${client.email}"></td>
                         <td th:text="${client.direccio}"></td>

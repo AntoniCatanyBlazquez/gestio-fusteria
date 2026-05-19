@@ -32,7 +32,6 @@ public class FacturaWebController {
     public String novaForm(Model model) {
         model.addAttribute("clients", clientService.getAllClients());
         model.addAttribute("treballs", treballService.getAllTreballs());
-        model.addAttribute("identificacions", IdentificacioClient.values());
         return "factures/formulari";
     }
 
@@ -40,7 +39,6 @@ public class FacturaWebController {
     public String crearFactura(
             @RequestParam Long clientId,
             @RequestParam(required = false) List<Long> treballIds,
-            @RequestParam IdentificacioClient identificacioClient,
             @RequestParam(required = false) String metodePagament,
             @RequestParam(required = false) String observacions) {
         List<Treball> treballs = new ArrayList<>();
@@ -53,7 +51,6 @@ public class FacturaWebController {
         Factura factura = new Factura();
         factura.setClient(clientService.getClientById(clientId));
         factura.setTreballs(treballs);
-        factura.setIdentificacioClient(identificacioClient);
         factura.setMetodePagament(metodePagament);
         factura.setObservacions(observacions);
         facturaService.createFactura(factura);

@@ -1,6 +1,7 @@
 package com.antoni.fusteria.web;
 
 import com.antoni.fusteria.domain.model.Client;
+import com.antoni.fusteria.domain.model.IdentificacioClient;
 import com.antoni.fusteria.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ public class ClientWebController {
     public String nouForm(Model model) {
         model.addAttribute("client", new Client());
         model.addAttribute("titolPagina", "Nou client");
+        model.addAttribute("tipusIdentificacions", IdentificacioClient.values());
         return "clients/formulari";
     }
 
@@ -44,6 +46,7 @@ public class ClientWebController {
         if (client == null) return "redirect:/clients";
         model.addAttribute("client", client);
         model.addAttribute("titolPagina", "Editar client");
+        model.addAttribute("tipusIdentificacions", IdentificacioClient.values());
         return "clients/formulari";
     }
 
@@ -56,6 +59,8 @@ public class ClientWebController {
         existing.setTelefon(client.getTelefon());
         existing.setDireccio(client.getDireccio());
         existing.setEmail(client.getEmail());
+        existing.setTipusIdentificacio(client.getTipusIdentificacio());
+        existing.setNumeroIdentificacio(client.getNumeroIdentificacio());
         clientService.saveClient(existing);
         return "redirect:/clients";
     }
