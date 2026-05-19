@@ -1,6 +1,7 @@
 package com.antoni.fusteria.api.controller;
 
 import com.antoni.fusteria.api.dto.TreballDto;
+import com.antoni.fusteria.domain.model.Estat_Treball;
 import com.antoni.fusteria.domain.model.Factura;
 import com.antoni.fusteria.domain.model.Treball;
 import com.antoni.fusteria.service.TreballService;
@@ -23,58 +24,47 @@ public class TreballController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TreballDto>> getAllTreballs(){
-        List<Treball> treballs = treballService.getAllTreballs();
-        List<TreballDto> dtos = treballs.stream()
-                .map(treballService::toDto)
-                .toList();
-        return ResponseEntity.ok(dtos);
+    public ResponseEntity<List<TreballDto>> getAllTreballs(
+            @RequestParam(required = false) String query,
+            @RequestParam(required = false) Estat_Treball estat,
+            @RequestParam(required = false) Long clientId) {
+
+        List<Treball> treballs;
+        if (query != null || estat != null || clientId != null) {
+            treballs = treballService.searchTreballs(query, estat, clientId);
+        } else {
+            treballs = treballService.getAllTreballs();
+        }
+        return ResponseEntity.ok(treballs.stream().map(treballService::toDto).toList());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TreballDto> getTreballById(@PathVariable Long id) {
         Treball treball = treballService.getTreballById(id);
-        if (treball == null) {
-            return ResponseEntity.notFound().build();
-        }
-        TreballDto dto = treballService.toDto(treball);
-        return ResponseEntity.ok(dto);
+        if (treball == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(treballService.toDto(treball));
     }
 
     @PostMapping
-    public ResponseEntity<Treball> createTreball(@RequestBody Treball treball){
-        Treball savedTreball = treballService.saveTreball(treball);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedTreball);
+    public ResponseEntity<Treball> createTreball(@RequestBody Treball treball) {
+        Treball saved = treballService.saveTreball(treball);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Treball> updateTreball(@PathVariable Long id, @RequestBody Treball treball) {
-        Treball existingTreball = treballService.getTreballById(id);
+        Treball existing = treballService.getTreballById(id);
+        if (existing == null) return ResponseEntity.notFound().build();
 
-        if (treball.getDescripcio() != null) {
-            existingTreball.setDescripcio(treball.getDescripcio());
-        }
-        if (treball.getData() != null) {
-            existingTreball.setData(treball.getData());
-        }
-        if (treball.getTitol() != null) {
-            existingTreball.setTitol(treball.getTitol());
-        }
-        if (treball.getPreu() != null) {
-            existingTreball.setPreu(treball.getPreu());
-        }
-        if (treball.getMaterials() != null) {
-            existingTreball.setMaterials(treball.getMaterials());
-        }
-        if (treball.getEstat() != null) {
-            existingTreball.setEstat(treball.getEstat());
-        }
-        if (existingTreball == null){
-            return ResponseEntity.notFound().build();
-        }
+        if (treball.getDescripcio() != null) existing.setDescripcio(treball.getDescripcio());
+        if (treball.getData() != null) existing.setData(treball.getData());
+        if (treball.getTitol() != null) existing.setTitol(treball.getTitol());
+        if (treball.getPreu() != null) existing.setPreu(treball.getPreu());
+        if (treball.getMaterials() != null) existing.setMaterials(treball.getMaterials());
+        if (treball.getEstat() != null) existing.setEstat(treball.getEstat());
+        if (treball.getImatge() != null) existing.setImatge(treball.getImatge());
 
-        Treball updatedTreball = treballService.saveTreball(existingTreball);
-        return ResponseEntity.ok(updatedTreball);
+        return ResponseEntity.ok(treballService.saveTreball(existing));
     }
 
     @DeleteMapping("/{id}")
@@ -84,21 +74,16 @@ public class TreballController {
     }
 
     @GetMapping("/{id}/factures")
-    public ResponseEntity<List<Factura>> getFacturesByTreballId (@PathVariable Long id) {
+    public ResponseEntity<List<Factura>> getFacturesByTreballId(@PathVariable Long id) {
         Treball treball = treballService.getTreballById(id);
-        if (treball == null) {
-            return ResponseEntity.notFound().build();
-        }
-        List<Factura> factures = treball.getFactures();
-        return ResponseEntity.ok(factures);
+        if (treball == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(treball.getFactures());
     }
 
     @GetMapping("/{id}/client")
-    public ResponseEntity<?> getClientByTreballId (@PathVariable Long id) {
+    public ResponseEntity<?> getClientByTreballId(@PathVariable Long id) {
         Treball treball = treballService.getTreballById(id);
-        if (treball == null) {
-            return ResponseEntity.notFound().build();
-        }
+        if (treball == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(treball.getClient());
     }
 }

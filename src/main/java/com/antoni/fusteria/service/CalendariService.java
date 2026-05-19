@@ -1,7 +1,6 @@
 package com.antoni.fusteria.service;
 
 import com.antoni.fusteria.api.dto.CalendariDto;
-import com.antoni.fusteria.api.dto.ClientDto;
 import com.antoni.fusteria.domain.model.Calendari;
 import com.antoni.fusteria.domain.repository.CalendariRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,9 @@ public class CalendariService {
         return new CalendariDto(
                 calendari.getId(),
                 calendari.getTitol(),
-                calendari.getDateEntrada().toString()
+                calendari.getDateEntrada(),
+                calendari.getComentaris(),
+                calendari.getTreball() != null ? calendari.getTreball().getId() : null
         );
     }
 }

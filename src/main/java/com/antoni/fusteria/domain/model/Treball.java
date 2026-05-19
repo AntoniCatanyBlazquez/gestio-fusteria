@@ -1,5 +1,6 @@
 package com.antoni.fusteria.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -12,32 +13,44 @@ public class Treball {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
     @NotNull
     private String titol;
+
     private String descripcio;
+
     @NotNull
     private LocalDate data;
+
     @Enumerated(EnumType.STRING)
     private Estat_Treball estat;
+
     private BigDecimal preu;
     private String materials;
+
     @Lob
+    @Column(columnDefinition = "BYTEA")
     private byte[] imatge;
 
     @ManyToMany(mappedBy = "treballs")
+    @JsonIgnore
     private List<Factura> factures;
 
     @OneToMany(mappedBy = "treball", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Calendari> treballCalendari;
 
-    public Treball(String titol) {
-        this.titol = titol;
-    }
+    public Treball() {}
 
-    public Treball(Long id, Client client, String titol, String descripcio, LocalDate data, Estat_Treball estat, BigDecimal preu, String materials, byte[] imatge, List<Factura> factures, List<Calendari> treballCalendari) {
+    public Treball(String titol) { this.titol = titol; }
+
+    public Treball(Long id, Client client, String titol, String descripcio, LocalDate data,
+                   Estat_Treball estat, BigDecimal preu, String materials, byte[] imatge,
+                   List<Factura> factures, List<Calendari> treballCalendari) {
         this.id = id;
         this.client = client;
         this.titol = titol;
@@ -51,83 +64,26 @@ public class Treball {
         this.treballCalendari = treballCalendari;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public String getDescripcio() {
-        return descripcio;
-    }
-
-    public void setDescripcio(String descripcio) {
-        this.descripcio = descripcio;
-    }
-
-    public LocalDate getData() {
-        return data;
-    }
-
-    public void setData(LocalDate data) {
-        this.data = data;
-    }
-
-    public Estat_Treball getEstat() {
-        return estat;
-    }
-
-    public void setEstat(Estat_Treball estat) {
-        this.estat = estat;
-    }
-
-    public BigDecimal getPreu() {
-        return preu;
-    }
-
-    public void setPreu(BigDecimal preu) {
-        this.preu = preu;
-    }
-
-    public String getMaterials() {
-        return materials;
-    }
-
-    public void setMaterials(String materials) {
-        this.materials = materials;
-    }
-
-    public byte[] getImatge() {
-        return imatge;
-    }
-
-    public void setImatge(byte[] imatge) {
-        this.imatge = imatge;
-    }
-
-    public List<Factura> getFactures() {
-        return factures;
-    }
-
-    public void setFactures(List<Factura> factures) {
-        this.factures = factures;
-    }
-
-    public String getTitol() {
-        return titol;
-    }
-
-    public void setTitol(String titol) {
-        this.titol = titol;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public Client getClient() { return client; }
+    public void setClient(Client client) { this.client = client; }
+    public String getTitol() { return titol; }
+    public void setTitol(String titol) { this.titol = titol; }
+    public String getDescripcio() { return descripcio; }
+    public void setDescripcio(String descripcio) { this.descripcio = descripcio; }
+    public LocalDate getData() { return data; }
+    public void setData(LocalDate data) { this.data = data; }
+    public Estat_Treball getEstat() { return estat; }
+    public void setEstat(Estat_Treball estat) { this.estat = estat; }
+    public BigDecimal getPreu() { return preu; }
+    public void setPreu(BigDecimal preu) { this.preu = preu; }
+    public String getMaterials() { return materials; }
+    public void setMaterials(String materials) { this.materials = materials; }
+    public byte[] getImatge() { return imatge; }
+    public void setImatge(byte[] imatge) { this.imatge = imatge; }
+    public List<Factura> getFactures() { return factures; }
+    public void setFactures(List<Factura> factures) { this.factures = factures; }
+    public List<Calendari> getTreballCalendari() { return treballCalendari; }
+    public void setTreballCalendari(List<Calendari> treballCalendari) { this.treballCalendari = treballCalendari; }
 }

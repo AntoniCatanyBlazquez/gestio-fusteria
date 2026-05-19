@@ -16,10 +16,10 @@ public class Factura {
 
     @ManyToOne
     @JoinColumn(name = "client_id")
-    private Client client;
+    private com.antoni.fusteria.domain.model.Client client;
 
     @NotNull
-    private IdentificacioClient identificacioClient;
+    private com.antoni.fusteria.domain.model.IdentificacioClient identificacioClient;
 
     @NotNull
     private LocalDate dataEmisio;
@@ -48,16 +48,16 @@ public class Factura {
             joinColumns = @JoinColumn(name = "factura_id"),
             inverseJoinColumns = @JoinColumn(name = "treball_id")
     )
-    private List<Treball> treballs;
+    private List<com.antoni.fusteria.domain.model.Treball> treballs;
 
-    public Factura(IdentificacioClient identificacioClient) {
+    public Factura(com.antoni.fusteria.domain.model.IdentificacioClient identificacioClient) {
         this.identificacioClient = identificacioClient;
     }
 
-    public Factura(Long id, Client client, IdentificacioClient identificacioClient, LocalDate dataEmisio, String numeroFactura,
+    public Factura(Long id, com.antoni.fusteria.domain.model.Client client, com.antoni.fusteria.domain.model.IdentificacioClient identificacioClient, LocalDate dataEmisio, String numeroFactura,
                    BigDecimal subtotal, BigDecimal retencioIRPF, BigDecimal total,
                    BigDecimal iva, @Nullable String observacions, @Nullable String metodePagament,
-                   List<Treball> treballs) {
+                   List<com.antoni.fusteria.domain.model.Treball> treballs) {
         this.id = id;
         this.client = client;
         this.identificacioClient = identificacioClient;
@@ -72,6 +72,8 @@ public class Factura {
         this.treballs = treballs;
     }
 
+    public Factura() {}
+
     public Long getId() {
         return id;
     }
@@ -80,11 +82,11 @@ public class Factura {
         this.id = id;
     }
 
-    public Client getClient() {
+    public com.antoni.fusteria.domain.model.Client getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(com.antoni.fusteria.domain.model.Client client) {
         this.client = client;
     }
 
@@ -154,19 +156,19 @@ public class Factura {
         this.metodePagament = metodePagament;
     }
 
-    public List<Treball> getTreballs() {
+    public List<com.antoni.fusteria.domain.model.Treball> getTreballs() {
         return treballs;
     }
 
-    public void setTreballs(List<Treball> treballs) {
+    public void setTreballs(List<com.antoni.fusteria.domain.model.Treball> treballs) {
         this.treballs = treballs;
     }
 
-    public @NotNull IdentificacioClient getIdentificacioClient() {
+    public @NotNull com.antoni.fusteria.domain.model.IdentificacioClient getIdentificacioClient() {
         return identificacioClient;
     }
 
-    public void setIdentificacioClient(@NotNull IdentificacioClient identificacioClient) {
+    public void setIdentificacioClient(@NotNull com.antoni.fusteria.domain.model.IdentificacioClient identificacioClient) {
         this.identificacioClient = identificacioClient;
     }
 }

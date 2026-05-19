@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendari - Gestió Fusteria</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>body { background-color: #f5f0eb; }</style>
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 style="color: #5D4037;">Calendari</h2>
+        <a th:href="@{/calendari/nou}" class="btn" style="background-color: #795548; color: white;">+ Nova entrada</a>
+    </div>
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead style="background-color: #795548; color: white;">
+                    <tr><th>Títol</th><th>Treball</th><th>Data</th><th>Comentaris</th><th>Accions</th></tr>
+                </thead>
+                <tbody>
+                    <tr th:each="c : ${calendaris}">
+                        <td th:text="${c.titol}"></td>
+                        <td th:text="${c.treball != null ? c.treball.titol : '-'}"></td>
+                        <td th:text="${c.dateEntrada}"></td>
+                        <td th:text="${c.comentaris != null ? c.comentaris : '-'}"></td>
+                        <td>
+                            <form th:action="@{/calendari/{id}/eliminar(id=${c.id})}" method="post" style="display:inline;" onsubmit="return confirm('Eliminar aquesta entrada?')">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(calendaris)}">
+                        <td colspan="5" class="text-center text-muted py-4">No hi ha entrades al calendari</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

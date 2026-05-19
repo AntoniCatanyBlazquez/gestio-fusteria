@@ -6,15 +6,31 @@ import com.antoni.fusteria.domain.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ClientService {
+
     @Autowired
     private ClientRepository clientRepository;
 
     public List<Client> getAllClients() {
         return clientRepository.findAll();
+    }
+
+    public List<Client> searchClients(String query) {
+        String q = query.toLowerCase();
+        List<Client> resultat = new ArrayList<>();
+        for (Client c : clientRepository.findAll()) {
+            boolean coincideixNom = c.getNom().toLowerCase().contains(q);
+            boolean coincideixLlinatge = c.getLlinatge().toLowerCase().contains(q);
+            boolean coincideixEmail = c.getEmail() != null && c.getEmail().toLowerCase().contains(q);
+            if (coincideixNom || coincideixLlinatge || coincideixEmail) {
+                resultat.add(c);
+            }
+        }
+        return resultat;
     }
 
     public Client getClientById(Long id) {
@@ -32,8 +48,11 @@ public class ClientService {
     public ClientDto toDto(Client client) {
         return new ClientDto(
                 client.getId(),
-                client.getNom() + " " + client.getLlinatge(),
-                String.valueOf(client.getTelefon())
+                client.getNom(),
+                client.getLlinatge(),
+                client.getTelefon(),
+                client.getDireccio(),
+                client.getEmail()
         );
     }
 }

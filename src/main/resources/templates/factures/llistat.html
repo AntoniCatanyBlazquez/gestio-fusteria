@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Factures - Gestió Fusteria</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>body { background-color: #f5f0eb; }</style>
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 style="color: #5D4037;">Factures</h2>
+        <a th:href="@{/factures/nova}" class="btn" style="background-color: #795548; color: white;">+ Nova factura</a>
+    </div>
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead style="background-color: #795548; color: white;">
+                    <tr><th>Núm. Factura</th><th>Client</th><th>Data emissió</th><th>Subtotal</th><th>IVA (21%)</th><th>IRPF (15%)</th><th>Total</th><th>Pagament</th><th>Accions</th></tr>
+                </thead>
+                <tbody>
+                    <tr th:each="factura : ${factures}">
+                        <td th:text="${factura.numeroFactura}"></td>
+                        <td th:text="${factura.nomClient}"></td>
+                        <td th:text="${factura.dataEmisio}"></td>
+                        <td th:text="${factura.subtotal + ' €'}"></td>
+                        <td th:text="${factura.iva + ' €'}"></td>
+                        <td th:text="${factura.retencioIRPF + ' €'}"></td>
+                        <td class="fw-bold" th:text="${factura.total + ' €'}"></td>
+                        <td th:text="${factura.metodePagament != null ? factura.metodePagament : '-'}"></td>
+                        <td>
+                            <a th:href="@{/factures/{id}/pdf(id=${factura.id})}" class="btn btn-sm btn-outline-secondary me-1" target="_blank">PDF</a>
+                            <form th:action="@{/factures/{id}/eliminar(id=${factura.id})}" method="post" style="display:inline;" onsubmit="return confirm('Eliminar aquesta factura?')">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(factures)}">
+                        <td colspan="9" class="text-center text-muted py-4">No hi ha factures emeses</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

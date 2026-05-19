@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Treballs - Gestió Fusteria</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { background-color: #f5f0eb; }
+        .badge-PENDENT    { background-color: #FFC107; color: #000; }
+        .badge-EN_CURS    { background-color: #0288D1; color: #fff; }
+        .badge-FINALITZAT { background-color: #388E3C; color: #fff; }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 style="color: #5D4037;">Treballs</h2>
+        <a th:href="@{/treballs/nou}" class="btn" style="background-color: #795548; color: white;">+ Nou treball</a>
+    </div>
+    <form method="get" th:action="@{/treballs}" class="row g-2 mb-4">
+        <div class="col-md-5">
+            <input type="text" name="query" class="form-control" placeholder="Cercar per títol, descripció o materials..." th:value="${query}">
+        </div>
+        <div class="col-md-3">
+            <select name="estat" class="form-select">
+                <option value="">Tots els estats</option>
+                <option th:each="e : ${estats}" th:value="${e}" th:text="${e}" th:selected="${e == estatSeleccionat}"></option>
+            </select>
+        </div>
+        <div class="col-md-2"><button class="btn btn-secondary w-100" type="submit">Filtrar</button></div>
+        <div class="col-md-2"><a th:href="@{/treballs}" class="btn btn-outline-secondary w-100">Netejar</a></div>
+    </form>
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead style="background-color: #795548; color: white;">
+                    <tr><th>Títol</th><th>Client</th><th>Data</th><th>Estat</th><th>Preu</th><th>Accions</th></tr>
+                </thead>
+                <tbody>
+                    <tr th:each="treball : ${treballs}">
+                        <td th:text="${treball.titol}"></td>
+                        <td th:text="${treball.client != null ? treball.client.nom + ' ' + treball.client.llinatge : '-'}"></td>
+                        <td th:text="${treball.data}"></td>
+                        <td>
+                            <span class="badge rounded-pill" th:classappend="'badge-' + ${treball.estat}" th:text="${treball.estat}"></span>
+                        </td>
+                        <td th:text="${treball.preu != null ? treball.preu + ' €' : '-'}"></td>
+                        <td>
+                            <a th:href="@{/treballs/{id}/editar(id=${treball.id})}" class="btn btn-sm btn-outline-secondary me-1">Editar</a>
+                            <form th:action="@{/treballs/{id}/eliminar(id=${treball.id})}" method="post" style="display:inline;" onsubmit="return confirm('Eliminar aquest treball?')">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(treballs)}">
+                        <td colspan="6" class="text-center text-muted py-4">No hi ha treballs registrats</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

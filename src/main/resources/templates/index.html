@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestió Fusteria</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { background-color: #f5f0eb; }
+        .card-counter { border-left: 4px solid #795548; }
+        .card-counter .number { font-size: 2.5rem; font-weight: bold; color: #5D4037; }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container mt-5">
+    <h1 class="mb-4" style="color: #5D4037;">Benvingut a Gestió Fusteria</h1>
+    <p class="text-muted mb-5">Panell de control de la fusteria</p>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card card-counter shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="number" th:text="${totalClients}">0</div>
+                    <div class="text-muted">Clients registrats</div>
+                    <a th:href="@{/clients}" class="btn btn-sm mt-3" style="background-color: #795548; color: white;">Veure clients</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-counter shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="number" th:text="${totalTreballs}">0</div>
+                    <div class="text-muted">Treballs en curs</div>
+                    <a th:href="@{/treballs}" class="btn btn-sm mt-3" style="background-color: #795548; color: white;">Veure treballs</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-counter shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="number" th:text="${totalFactures}">0</div>
+                    <div class="text-muted">Factures emeses</div>
+                    <a th:href="@{/factures}" class="btn btn-sm mt-3" style="background-color: #795548; color: white;">Veure factures</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col">
+            <h5 class="text-muted">Accions ràpides</h5>
+            <div class="d-flex gap-3 flex-wrap">
+                <a th:href="@{/clients/nou}" class="btn btn-outline-secondary">+ Nou client</a>
+                <a th:href="@{/treballs/nou}" class="btn btn-outline-secondary">+ Nou treball</a>
+                <a th:href="@{/factures/nova}" class="btn btn-outline-secondary">+ Nova factura</a>
+                <a th:href="@{/calendari/nou}" class="btn btn-outline-secondary">+ Nou event</a>
+                <a th:href="@{/estadistiques}" class="btn btn-outline-secondary">📊 Estadístiques</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

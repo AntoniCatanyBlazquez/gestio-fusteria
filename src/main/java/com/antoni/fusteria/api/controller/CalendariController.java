@@ -1,8 +1,8 @@
 package com.antoni.fusteria.api.controller;
 
+import com.antoni.fusteria.domain.model.Factura;
 import com.antoni.fusteria.api.dto.CalendariDto;
 import com.antoni.fusteria.domain.model.Calendari;
-import com.antoni.fusteria.domain.model.Factura;
 import com.antoni.fusteria.domain.model.Treball;
 import com.antoni.fusteria.service.CalendariService;
 import com.antoni.fusteria.service.TreballService;
@@ -36,37 +36,35 @@ public class CalendariController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CalendariDto> getCalendariById(@PathVariable Long id){
+    public ResponseEntity<CalendariDto> getCalendariById(@PathVariable Long id) {
         Calendari calendari = calendariService.getCalendariById(id);
         if (calendari == null) {
             return ResponseEntity.notFound().build();
         }
-        CalendariDto dto = calendariService.toDto(calendari);
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(calendariService.toDto(calendari));
     }
 
     @PostMapping
-    public ResponseEntity<Calendari> createCalendari(@RequestBody Calendari calendari){
-        Calendari savedCalendari = calendariService.saveCalendari(calendari);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedCalendari);
+    public ResponseEntity<Calendari> createCalendari(@RequestBody Calendari calendari) {
+        Calendari saved = calendariService.saveCalendari(calendari);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Calendari> updateCalendari(@PathVariable Long id, @RequestBody Calendari calendari) {
-        Calendari existingCalendari = calendariService.getCalendariById(id);
-
-        if (calendari.getDateEntrada() != null) {
-            existingCalendari.setDateEntrada(calendari.getDateEntrada());
-        }
-        if (calendari.getComentaris() != null) {
-            existingCalendari.setComentaris(calendari.getComentaris());
-        }
-        if (existingCalendari == null) {
+        Calendari existing = calendariService.getCalendariById(id);
+        if (existing == null) {
             return ResponseEntity.notFound().build();
         }
 
-        Calendari updatedCalendari = calendariService.saveCalendari(existingCalendari);
-        return ResponseEntity.ok(updatedCalendari);
+        if (calendari.getDateEntrada() != null) {
+            existing.setDateEntrada(calendari.getDateEntrada());
+        }
+        if (calendari.getComentaris() != null) {
+            existing.setComentaris(calendari.getComentaris());
+        }
+
+        return ResponseEntity.ok(calendariService.saveCalendari(existing));
     }
 
     @DeleteMapping("/{id}")
@@ -81,13 +79,11 @@ public class CalendariController {
         if (treball == null) {
             return ResponseEntity.notFound().build();
         }
-        List<Factura> factures = treball.getFactures();
-        return ResponseEntity.ok(factures);
+        return ResponseEntity.ok(treball.getFactures());
     }
 
     @GetMapping("/esdeveniments")
     public List<CalendariDto> obtenirEsdeveniment() {
         return treballService.obtenirTreballsPerCalendari();
-
     }
 }

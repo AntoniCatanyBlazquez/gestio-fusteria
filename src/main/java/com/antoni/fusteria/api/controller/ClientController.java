@@ -23,51 +23,39 @@ public class ClientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClientDto>> getAllClients() {
-        List<Client> clients = clientService.getAllClients();
-        List<ClientDto> dtos = clients.stream()
-                .map(clientService::toDto)
-                .toList();
-        return ResponseEntity.ok(dtos);
+    public ResponseEntity<List<ClientDto>> getAllClients(
+            @RequestParam(required = false) String query) {
+        List<Client> clients = query != null
+                ? clientService.searchClients(query)
+                : clientService.getAllClients();
+        return ResponseEntity.ok(clients.stream().map(clientService::toDto).toList());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ClientDto> getClientById(@PathVariable Long id) {
         Client client = clientService.getClientById(id);
-        if (client == null){
-            return ResponseEntity.notFound().build();
-        }
-        ClientDto dto = clientService.toDto(client);
-        return ResponseEntity.ok(dto);
+        if (client == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(clientService.toDto(client));
     }
 
     @PostMapping
-    public ResponseEntity<Client> createClient(@RequestBody Client client){
-        Client savedClient = clientService.saveClient(client);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedClient);
+    public ResponseEntity<Client> createClient(@RequestBody Client client) {
+        Client saved = clientService.saveClient(client);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Client> updateClient(@PathVariable Long id, @RequestBody Client client) {
-        Client existingClient = clientService.getClientById(id);
+        Client existing = clientService.getClientById(id);
+        if (existing == null) return ResponseEntity.notFound().build();
 
-        if (client.getNom() != null) {
-            existingClient.setNom(client.getNom());
-        }
-        if (client.getLlinatge() != null) {
-            existingClient.setLlinatge(client.getLlinatge());
-        }
-        if (client.getTelefon() != 0) {
-            existingClient.setTelefon(client.getTelefon());
-        }
-        if (client.getDireccio() != null) {
-            existingClient.setDireccio(client.getDireccio());
-        }
-        if (client.getEmail() != null) {
-            existingClient.setEmail(client.getEmail());
-        }
-        Client updatedClient = clientService.saveClient(existingClient);
-        return ResponseEntity.ok(updatedClient);
+        if (client.getNom() != null) existing.setNom(client.getNom());
+        if (client.getLlinatge() != null) existing.setLlinatge(client.getLlinatge());
+        if (client.getTelefon() != null) existing.setTelefon(client.getTelefon());
+        if (client.getDireccio() != null) existing.setDireccio(client.getDireccio());
+        if (client.getEmail() != null) existing.setEmail(client.getEmail());
+
+        return ResponseEntity.ok(clientService.saveClient(existing));
     }
 
     @DeleteMapping("/{id}")
@@ -76,13 +64,10 @@ public class ClientController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("{id}/treballs")
-    public ResponseEntity<List<Treball>> getTreballsByClientId (@PathVariable Long id) {
+    @GetMapping("/{id}/treballs")
+    public ResponseEntity<List<Treball>> getTreballsByClientId(@PathVariable Long id) {
         Client client = clientService.getClientById(id);
-        if (client == null) {
-            return ResponseEntity.notFound().build();
-        }
-        List<Treball> treballs = client.getTreballs();
-        return ResponseEntity.ok(treballs);
+        if (client == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(client.getTreballs());
     }
 }
