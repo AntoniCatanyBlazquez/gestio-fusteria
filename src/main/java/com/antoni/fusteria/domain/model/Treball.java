@@ -32,7 +32,6 @@ public class Treball {
     private BigDecimal preu;
     private String materials;
 
-    @Lob
     @Column(columnDefinition = "BYTEA")
     private byte[] imatge;
 
