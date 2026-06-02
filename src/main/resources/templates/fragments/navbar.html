@@ -67,55 +67,27 @@
             color: rgba(255,255,255,0.3);
         }
 
-        .sidebar-footer {
-            padding: 1rem 1.2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        .btn-logout {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            background: rgba(255,255,255,0.08);
-            color: rgba(255,255,255,0.7);
-            border: none;
-            padding: 0.55rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 0.88rem;
-            transition: all 0.15s;
-        }
-        .btn-logout:hover {
-            background: rgba(231, 76, 60, 0.25);
-            color: #e74c3c;
-        }
-
         .main-content {
             margin-left: 240px;
             padding: 2rem 2.5rem;
             min-height: 100vh;
         }
 
-        /* Cards */
         .card { border: none; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
         .card-header { border-radius: 12px 12px 0 0 !important; font-weight: 600; padding: 0.9rem 1.25rem; }
 
-        /* Buttons */
         .btn-wood { background-color: #795548; color: white; border: none; border-radius: 8px; padding: 0.45rem 1rem; }
         .btn-wood:hover { background-color: #5D4037; color: white; }
 
-        /* Table */
         .table { margin-bottom: 0; }
         .table thead th { background-color: #795548; color: white; border: none; font-weight: 600; padding: 0.85rem 1rem; }
         .table tbody tr:hover { background-color: rgba(121, 85, 72, 0.05); }
         .table td { padding: 0.8rem 1rem; vertical-align: middle; border-color: #f0e8e0; }
 
-        /* Badge estats */
         .badge-PENDENT    { background-color: #FFC107; color: #000; padding: 0.35em 0.7em; border-radius: 20px; font-size: 0.78rem; }
         .badge-EN_CURS    { background-color: #0288D1; color: #fff; padding: 0.35em 0.7em; border-radius: 20px; font-size: 0.78rem; }
         .badge-FINALITZAT { background-color: #388E3C; color: #fff; padding: 0.35em 0.7em; border-radius: 20px; font-size: 0.78rem; }
 
-        /* Page header */
         .page-header { margin-bottom: 1.5rem; }
         .page-header h2 { color: #2D1B0E; font-weight: 700; margin: 0; }
         .page-header p { color: #999; margin: 0.25rem 0 0; font-size: 0.9rem; }
@@ -128,38 +100,14 @@
         </a>
         <ul class="sidebar-nav">
             <li class="section-label">Principal</li>
-            <li>
-                <a th:href="@{/}">
-                    <i class="bi bi-speedometer2"></i> Dashboard
-                </a>
-            </li>
+            <li><a th:href="@{/}"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
             <li class="section-label">Gestió</li>
-            <li>
-                <a th:href="@{/clients}" th:classappend="">
-                    <i class="bi bi-people"></i> Clients
-                </a>
-            </li>
-            <li>
-                <a th:href="@{/treballs}" th:classappend="">
-                    <i class="bi bi-hammer"></i> Treballs
-                </a>
-            </li>
-            <li>
-                <a th:href="@{/factures}" th:classappend="">
-                    <i class="bi bi-receipt"></i> Factures
-                </a>
-            </li>
-            <li>
-                <a th:href="@{/calendari}" th:classappend="">
-                    <i class="bi bi-calendar3"></i> Calendari
-                </a>
-            </li>
+            <li><a th:href="@{/clients}"><i class="bi bi-people"></i> Clients</a></li>
+            <li><a th:href="@{/treballs}"><i class="bi bi-hammer"></i> Treballs</a></li>
+            <li><a th:href="@{/factures}"><i class="bi bi-receipt"></i> Factures</a></li>
+            <li><a th:href="@{/calendari}"><i class="bi bi-calendar3"></i> Calendari</a></li>
             <li class="section-label">Anàlisi</li>
-            <li>
-                <a th:href="@{/estadistiques}" th:classappend="">
-                    <i class="bi bi-bar-chart-line"></i> Estadístiques
-                </a>
-            </li>
+            <li><a th:href="@{/estadistiques}"><i class="bi bi-bar-chart-line"></i> Estadístiques</a></li>
         </ul>
     </div>
 </div>
