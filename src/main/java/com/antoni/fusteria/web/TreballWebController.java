@@ -48,11 +48,21 @@ public class TreballWebController {
     public String guardarNouTreball(
             @RequestParam String titol,
             @RequestParam(required = false) String descripcio,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data,
             @RequestParam(required = false) Estat_Treball estat,
             @RequestParam(required = false) BigDecimal preu,
             @RequestParam(required = false) String materials,
-            @RequestParam(required = false) Long clientId) {
+            @RequestParam(required = false) Long clientId,
+            Model model) {
+        if (titol == null || titol.isBlank() || data == null) {
+            model.addAttribute("treball", new Treball());
+            model.addAttribute("clients", clientService.getAllClients());
+            model.addAttribute("estats", Estat_Treball.values());
+            model.addAttribute("titolPagina", "Nou treball");
+            if (titol == null || titol.isBlank()) model.addAttribute("errorTitol", "El títol és obligatori");
+            if (data == null) model.addAttribute("errorData", "La data és obligatòria");
+            return "treballs/formulari";
+        }
         Treball treball = new Treball();
         treball.setTitol(titol);
         treball.setDescripcio(descripcio);

@@ -2,6 +2,8 @@ package com.antoni.fusteria.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
@@ -16,8 +18,10 @@ public class Calendari {
     @JsonIgnore
     private Treball treball;
 
+    @NotNull(message = "La data és obligatòria")
     private LocalDate dateEntrada;
     private String comentaris;
+    @NotBlank(message = "El títol és obligatori")
     private String titol;
 
     public Calendari() {}

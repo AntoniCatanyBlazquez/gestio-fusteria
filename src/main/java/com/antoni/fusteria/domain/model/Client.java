@@ -3,7 +3,7 @@ package com.antoni.fusteria.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
@@ -13,10 +13,10 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank(message = "El nom és obligatori")
     private String nom;
 
-    @NotNull
+    @NotBlank(message = "El llinatge és obligatori")
     private String llinatge;
 
     private String telefon;

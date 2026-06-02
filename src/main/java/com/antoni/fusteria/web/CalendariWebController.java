@@ -33,10 +33,18 @@ public class CalendariWebController {
 
     @PostMapping("/nou")
     public String guardarCalendari(
-            @RequestParam Long treballId,
+            @RequestParam(required = false) Long treballId,
             @RequestParam String titol,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateEntrada,
-            @RequestParam(required = false) String comentaris) {
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateEntrada,
+            @RequestParam(required = false) String comentaris,
+            Model model) {
+        if (titol == null || titol.isBlank() || treballId == null || dateEntrada == null) {
+            model.addAttribute("treballs", treballService.getAllTreballs());
+            if (titol == null || titol.isBlank()) model.addAttribute("errorTitol", "El títol és obligatori");
+            if (treballId == null) model.addAttribute("errorTreball", "El treball és obligatori");
+            if (dateEntrada == null) model.addAttribute("errorData", "La data és obligatòria");
+            return "calendari/formulari";
+        }
         Treball treball = treballService.getTreballById(treballId);
         Calendari calendari = new Calendari();
         calendari.setTreball(treball);

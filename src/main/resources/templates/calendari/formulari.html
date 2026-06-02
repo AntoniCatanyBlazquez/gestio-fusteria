@@ -19,18 +19,23 @@
                 <div class="row g-3">
                     <div class="col-12">
                         <label class="form-label fw-semibold">Títol <span class="text-danger">*</span></label>
-                        <input type="text" name="titol" class="form-control" required placeholder="Ex: Reunió amb client">
+                        <input type="text" name="titol" class="form-control" placeholder="Ex: Reunió amb client"
+                               th:classappend="${errorTitol != null} ? 'is-invalid' : ''">
+                        <div class="invalid-feedback" th:if="${errorTitol}" th:text="${errorTitol}"></div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-semibold">Treball associat <span class="text-danger">*</span></label>
-                        <select name="treballId" class="form-select" required>
+                        <select name="treballId" class="form-select" th:classappend="${errorTreball != null} ? 'is-invalid' : ''">
                             <option value="">— Selecciona un treball —</option>
                             <option th:each="t : ${treballs}" th:value="${t.id}" th:text="${t.titol}"></option>
                         </select>
+                        <div class="invalid-feedback" th:if="${errorTreball}" th:text="${errorTreball}"></div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-semibold">Data <span class="text-danger">*</span></label>
-                        <input type="date" name="dateEntrada" class="form-control" required>
+                        <input type="date" name="dateEntrada" class="form-control"
+                               th:classappend="${errorData != null} ? 'is-invalid' : ''">
+                        <div class="invalid-feedback" th:if="${errorData}" th:text="${errorData}"></div>
                     </div>
                     <div class="col-12">
                         <label class="form-label fw-semibold">Comentaris</label>

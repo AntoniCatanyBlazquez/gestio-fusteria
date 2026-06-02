@@ -2,6 +2,7 @@ package com.antoni.fusteria.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -18,7 +19,7 @@ public class Treball {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @NotNull
+    @NotBlank(message = "El títol és obligatori")
     private String titol;
 
     private String descripcio;

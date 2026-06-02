@@ -19,7 +19,9 @@
                 <div class="row g-3">
                     <div class="col-12">
                         <label class="form-label fw-semibold">Títol <span class="text-danger">*</span></label>
-                        <input type="text" name="titol" class="form-control" required th:value="${treball.titol}" placeholder="Ex: Moble de cuina">
+                        <input type="text" name="titol" class="form-control" th:value="${treball.titol}" placeholder="Ex: Moble de cuina"
+                               th:classappend="${errorTitol != null} ? 'is-invalid' : ''">
+                        <div class="invalid-feedback" th:if="${errorTitol}" th:text="${errorTitol}"></div>
                     </div>
                     <div class="col-12">
                         <label class="form-label fw-semibold">Descripció</label>
@@ -27,7 +29,9 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-semibold">Data <span class="text-danger">*</span></label>
-                        <input type="date" name="data" class="form-control" required th:value="${treball.data}">
+                        <input type="date" name="data" class="form-control" th:value="${treball.data}"
+                               th:classappend="${errorData != null} ? 'is-invalid' : ''">
+                        <div class="invalid-feedback" th:if="${errorData}" th:text="${errorData}"></div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-semibold">Preu (€)</label>

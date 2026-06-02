@@ -3,9 +3,11 @@ package com.antoni.fusteria.web;
 import com.antoni.fusteria.domain.model.Client;
 import com.antoni.fusteria.domain.model.IdentificacioClient;
 import com.antoni.fusteria.service.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,7 +37,12 @@ public class ClientWebController {
     }
 
     @PostMapping("/nou")
-    public String guardarNouClient(@ModelAttribute Client client) {
+    public String guardarNouClient(@Valid @ModelAttribute Client client, BindingResult errors, Model model) {
+        if (errors.hasErrors()) {
+            model.addAttribute("titolPagina", "Nou client");
+            model.addAttribute("tipusIdentificacions", IdentificacioClient.values());
+            return "clients/formulari";
+        }
         clientService.saveClient(client);
         return "redirect:/clients";
     }
@@ -51,7 +58,12 @@ public class ClientWebController {
     }
 
     @PostMapping("/{id}/editar")
-    public String guardarClientEditat(@PathVariable Long id, @ModelAttribute Client client) {
+    public String guardarClientEditat(@PathVariable Long id, @Valid @ModelAttribute Client client, BindingResult errors, Model model) {
+        if (errors.hasErrors()) {
+            model.addAttribute("titolPagina", "Editar client");
+            model.addAttribute("tipusIdentificacions", IdentificacioClient.values());
+            return "clients/formulari";
+        }
         Client existing = clientService.getClientById(id);
         if (existing == null) return "redirect:/clients";
         existing.setNom(client.getNom());
