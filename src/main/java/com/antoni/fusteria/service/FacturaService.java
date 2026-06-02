@@ -103,7 +103,11 @@ public class FacturaService {
         document.add(new Paragraph("Data: " + factura.getDataEmisio()));
         document.add(new Paragraph(" "));
         document.add(new Paragraph("Client: " + factura.getClient().getNom() + " " + factura.getClient().getLlinatge()));
-        document.add(new Paragraph("NIF/DNI: " + factura.getIdentificacioClient()));
+        String identificacio = "";
+        if (factura.getClient().getTipusIdentificacio() != null) {
+            identificacio = factura.getClient().getTipusIdentificacio() + ": " + factura.getClient().getNumeroIdentificacio();
+        }
+        document.add(new Paragraph("Identificació: " + identificacio));
         document.add(new Paragraph(" "));
 
         Table table = new Table(UnitValue.createPercentArray(new float[]{50, 25, 25}))

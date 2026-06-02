@@ -18,7 +18,7 @@ public class Factura {
     @JoinColumn(name = "client_id")
     private com.antoni.fusteria.domain.model.Client client;
 
-    @NotNull
+    @Nullable
     private com.antoni.fusteria.domain.model.IdentificacioClient identificacioClient;
 
     @NotNull
