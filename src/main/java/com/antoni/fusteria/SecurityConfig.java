@@ -32,6 +32,9 @@ public class SecurityConfig {
             .logout(logout -> logout
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()
+            )
+            .requiresChannel(channel -> channel
+                .anyRequest().requiresInsecure()
             );
         return http.build();
     }
