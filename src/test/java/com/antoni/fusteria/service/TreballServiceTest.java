@@ -2,6 +2,7 @@ package com.antoni.fusteria.service;
 
 import com.antoni.fusteria.domain.model.Estat_Treball;
 import com.antoni.fusteria.domain.model.Treball;
+import com.antoni.fusteria.domain.repository.CalendariRepository;
 import com.antoni.fusteria.domain.repository.TreballRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +21,9 @@ class TreballServiceTest {
     @Mock
     private TreballRepository treballRepository;
 
+    @Mock
+    private CalendariRepository calendariRepository;
+
     @InjectMocks
     private TreballService treballService;
 
@@ -36,7 +40,7 @@ class TreballServiceTest {
 
         when(treballRepository.findAll()).thenReturn(List.of(t1, t2, t3));
 
-        List<Treball> resultat = treballService.searchTreballs(null, Estat_Treball.PENDENT);
+        List<Treball> resultat = treballService.searchTreballs(null, Estat_Treball.PENDENT, null);
 
         assertEquals(1, resultat.size());
         assertEquals(Estat_Treball.PENDENT, resultat.get(0).getEstat());
@@ -52,7 +56,7 @@ class TreballServiceTest {
 
         when(treballRepository.findAll()).thenReturn(List.of(t1, t2));
 
-        List<Treball> resultat = treballService.searchTreballs("porta", null);
+        List<Treball> resultat = treballService.searchTreballs("porta", null, null);
 
         assertEquals(1, resultat.size());
         assertEquals("Porta entrada", resultat.get(0).getTitol());
@@ -66,7 +70,7 @@ class TreballServiceTest {
 
         when(treballRepository.findAll()).thenReturn(List.of(t1, t2, t3));
 
-        List<Treball> resultat = treballService.searchTreballs(null, null);
+        List<Treball> resultat = treballService.searchTreballs(null, null, null);
 
         assertEquals(3, resultat.size());
     }
