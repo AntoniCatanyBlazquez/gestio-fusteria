@@ -129,34 +129,34 @@
         <ul class="sidebar-nav">
             <li class="section-label">Principal</li>
             <li>
-                <a th:href="@{/}" th:classappend="${#httpServletRequest.requestURI == '/' ? 'active' : ''}">
+                <a th:href="@{/}">
                     <i class="bi bi-speedometer2"></i> Dashboard
                 </a>
             </li>
             <li class="section-label">Gestió</li>
             <li>
-                <a th:href="@{/clients}" th:classappend="${#httpServletRequest.requestURI.startsWith('/clients') ? 'active' : ''}">
+                <a th:href="@{/clients}" th:classappend="">
                     <i class="bi bi-people"></i> Clients
                 </a>
             </li>
             <li>
-                <a th:href="@{/treballs}" th:classappend="${#httpServletRequest.requestURI.startsWith('/treballs') ? 'active' : ''}">
+                <a th:href="@{/treballs}" th:classappend="">
                     <i class="bi bi-hammer"></i> Treballs
                 </a>
             </li>
             <li>
-                <a th:href="@{/factures}" th:classappend="${#httpServletRequest.requestURI.startsWith('/factures') ? 'active' : ''}">
+                <a th:href="@{/factures}" th:classappend="">
                     <i class="bi bi-receipt"></i> Factures
                 </a>
             </li>
             <li>
-                <a th:href="@{/calendari}" th:classappend="${#httpServletRequest.requestURI.startsWith('/calendari') ? 'active' : ''}">
+                <a th:href="@{/calendari}" th:classappend="">
                     <i class="bi bi-calendar3"></i> Calendari
                 </a>
             </li>
             <li class="section-label">Anàlisi</li>
             <li>
-                <a th:href="@{/estadistiques}" th:classappend="${#httpServletRequest.requestURI.startsWith('/estadistiques') ? 'active' : ''}">
+                <a th:href="@{/estadistiques}" th:classappend="">
                     <i class="bi bi-bar-chart-line"></i> Estadístiques
                 </a>
             </li>
