@@ -16,18 +16,13 @@ public class Factura {
 
     @ManyToOne
     @JoinColumn(name = "client_id")
-    private com.antoni.fusteria.domain.model.Client client;
-
-    @Nullable
-    private com.antoni.fusteria.domain.model.IdentificacioClient identificacioClient;
+    private Client client;
 
     @NotNull
     private LocalDate dataEmisio;
 
     private String numeroFactura;
-
     private BigDecimal subtotal;
-
     private BigDecimal retencioIRPF;
 
     @NotNull
@@ -48,127 +43,30 @@ public class Factura {
             joinColumns = @JoinColumn(name = "factura_id"),
             inverseJoinColumns = @JoinColumn(name = "treball_id")
     )
-    private List<com.antoni.fusteria.domain.model.Treball> treballs;
-
-    public Factura(com.antoni.fusteria.domain.model.IdentificacioClient identificacioClient) {
-        this.identificacioClient = identificacioClient;
-    }
-
-    public Factura(Long id, com.antoni.fusteria.domain.model.Client client, com.antoni.fusteria.domain.model.IdentificacioClient identificacioClient, LocalDate dataEmisio, String numeroFactura,
-                   BigDecimal subtotal, BigDecimal retencioIRPF, BigDecimal total,
-                   BigDecimal iva, @Nullable String observacions, @Nullable String metodePagament,
-                   List<com.antoni.fusteria.domain.model.Treball> treballs) {
-        this.id = id;
-        this.client = client;
-        this.identificacioClient = identificacioClient;
-        this.dataEmisio = dataEmisio;
-        this.numeroFactura = numeroFactura;
-        this.subtotal = subtotal;
-        this.retencioIRPF = retencioIRPF;
-        this.total = total;
-        this.iva = iva;
-        this.observacions = observacions;
-        this.metodePagament = metodePagament;
-        this.treballs = treballs;
-    }
+    private List<Treball> treballs;
 
     public Factura() {}
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public com.antoni.fusteria.domain.model.Client getClient() {
-        return client;
-    }
-
-    public void setClient(com.antoni.fusteria.domain.model.Client client) {
-        this.client = client;
-    }
-
-    public @NotNull LocalDate getDataEmisio() {
-        return dataEmisio;
-    }
-
-    public void setDataEmisio(@NotNull LocalDate dataEmisio) {
-        this.dataEmisio = dataEmisio;
-    }
-
-    public String getNumeroFactura() {
-        return numeroFactura;
-    }
-
-    public void setNumeroFactura(String numeroFactura) {
-        this.numeroFactura = numeroFactura;
-    }
-
-    public BigDecimal getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(BigDecimal subtotal) {
-        this.subtotal = subtotal;
-    }
-
-    public BigDecimal getRetencioIRPF() {
-        return retencioIRPF;
-    }
-
-    public void setRetencioIRPF(BigDecimal retencioIRPF) {
-        this.retencioIRPF = retencioIRPF;
-    }
-
-    public @NotNull BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(@NotNull BigDecimal total) {
-        this.total = total;
-    }
-
-    public BigDecimal getIva() {
-        return iva;
-    }
-
-    public void setIva(BigDecimal iva) {
-        this.iva = iva;
-    }
-
-    @Nullable
-    public String getObservacions() {
-        return observacions;
-    }
-
-    public void setObservacions(@Nullable String observacions) {
-        this.observacions = observacions;
-    }
-
-    @Nullable
-    public String getMetodePagament() {
-        return metodePagament;
-    }
-
-    public void setMetodePagament(@Nullable String metodePagament) {
-        this.metodePagament = metodePagament;
-    }
-
-    public List<com.antoni.fusteria.domain.model.Treball> getTreballs() {
-        return treballs;
-    }
-
-    public void setTreballs(List<com.antoni.fusteria.domain.model.Treball> treballs) {
-        this.treballs = treballs;
-    }
-
-    public @NotNull com.antoni.fusteria.domain.model.IdentificacioClient getIdentificacioClient() {
-        return identificacioClient;
-    }
-
-    public void setIdentificacioClient(@NotNull com.antoni.fusteria.domain.model.IdentificacioClient identificacioClient) {
-        this.identificacioClient = identificacioClient;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public Client getClient() { return client; }
+    public void setClient(Client client) { this.client = client; }
+    public LocalDate getDataEmisio() { return dataEmisio; }
+    public void setDataEmisio(LocalDate dataEmisio) { this.dataEmisio = dataEmisio; }
+    public String getNumeroFactura() { return numeroFactura; }
+    public void setNumeroFactura(String numeroFactura) { this.numeroFactura = numeroFactura; }
+    public BigDecimal getSubtotal() { return subtotal; }
+    public void setSubtotal(BigDecimal subtotal) { this.subtotal = subtotal; }
+    public BigDecimal getRetencioIRPF() { return retencioIRPF; }
+    public void setRetencioIRPF(BigDecimal retencioIRPF) { this.retencioIRPF = retencioIRPF; }
+    public BigDecimal getTotal() { return total; }
+    public void setTotal(BigDecimal total) { this.total = total; }
+    public BigDecimal getIva() { return iva; }
+    public void setIva(BigDecimal iva) { this.iva = iva; }
+    public String getObservacions() { return observacions; }
+    public void setObservacions(String observacions) { this.observacions = observacions; }
+    public String getMetodePagament() { return metodePagament; }
+    public void setMetodePagament(String metodePagament) { this.metodePagament = metodePagament; }
+    public List<Treball> getTreballs() { return treballs; }
+    public void setTreballs(List<Treball> treballs) { this.treballs = treballs; }
 }

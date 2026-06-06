@@ -47,7 +47,7 @@ public class FacturaService {
                 factura.getId(),
                 factura.getNumeroFactura(),
                 factura.getClient().getNom() + " " + factura.getClient().getLlinatge(),
-                factura.getIdentificacioClient(),
+                null,
                 factura.getDataEmisio(),
                 factura.getSubtotal() != null ? factura.getSubtotal().doubleValue() : 0,
                 factura.getIva() != null ? factura.getIva().doubleValue() : 0,
