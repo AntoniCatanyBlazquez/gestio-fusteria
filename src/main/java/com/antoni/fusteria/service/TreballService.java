@@ -4,7 +4,9 @@ import com.antoni.fusteria.api.dto.CalendariDto;
 import com.antoni.fusteria.api.dto.TreballDto;
 import com.antoni.fusteria.domain.model.Estat_Treball;
 import com.antoni.fusteria.domain.model.Treball;
+import com.antoni.fusteria.domain.model.Factura;
 import com.antoni.fusteria.domain.repository.CalendariRepository;
+import com.antoni.fusteria.domain.repository.FacturaRepository;
 import com.antoni.fusteria.domain.repository.TreballRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class TreballService {
     @Autowired
     private CalendariRepository calendariRepository;
 
+    @Autowired
+    private FacturaRepository facturaRepository;
+
     public List<Treball> getAllTreballs() {
         return treballRepository.findAll();
     }
@@ -35,6 +40,14 @@ public class TreballService {
     }
 
     public void deleteTreball(Long id) {
+        Treball treball = treballRepository.findById(id).orElse(null);
+        if (treball == null) return;
+        for (Factura factura : facturaRepository.findAll()) {
+            if (factura.getTreballs() != null && factura.getTreballs().contains(treball)) {
+                factura.getTreballs().remove(treball);
+                facturaRepository.save(factura);
+            }
+        }
         treballRepository.deleteById(id);
     }
 
